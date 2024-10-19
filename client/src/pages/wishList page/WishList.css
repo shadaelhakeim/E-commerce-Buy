@@ -1,0 +1,19 @@
+:root {
+    --info-color: #eaf1fb;
+    --main-color: #F55266;
+}
+.wishlist-page {
+    margin-top: 50px;
+}
+
+.card {
+    margin: 20px 0;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+.wishlist-btn{
+    background-color:var(--info-color) ;
+}

@@ -1,0 +1,54 @@
+.row .img-card {
+  background: #1d2c41 url(../../images/background.jpg) center/cover no-repeat;
+  border-radius: 15px;
+  width: 350px;
+  height: 500px;
+  position: relative;
+}
+.row .img-card img {
+  width: 300px;
+  animation: example 3.5s infinite ease-in-out;
+  position: absolute;
+  top: 2%;
+  z-index: 2;
+}
+.row .img-card .description {
+  position: absolute;
+  bottom: 15px;
+  left: 12%;
+  z-index: 1;
+}
+.row .img-card .description h2 {
+  font-size: 60px;
+  font-weight: bolder;
+}
+.row .img-card .description button {
+  display: block;
+  margin: 0 auto !important;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 15px;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 2s;
+  font-weight: bold;
+}
+.row .img-card .description button:hover {
+  background-color: rgb(212, 48, 48);
+}
+
+@keyframes example {
+  0% {
+    top: 9%;
+  }
+  50% {
+    top: 2%;
+  }
+  100% {
+    top: 9%;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,13 @@
+.home-content {
+  background-image: none !important;
+  background-color: white;
+}
+.home-content .icon {
+  transition: 0.5s;
+}
+.home-content .icon i, .home-content .icon h6 {
+  color: var(--secondary-color);
+}
+.home-content .icon p {
+  font-size: 14px;
+}/*# sourceMappingURL=style.css.map */

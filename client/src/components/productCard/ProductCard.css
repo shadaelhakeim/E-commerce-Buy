@@ -1,0 +1,68 @@
+:root{
+  --main-color: #F55266;
+    --secondary-color: #222934;
+    --ternary-color: #AFCDEF;
+}
+a{
+  text-decoration: none !important;
+}
+.card{
+  border: none !important;
+  overflow: hidden;
+}
+.card img {
+  
+  max-height: 200px;
+  object-fit: contain;
+}
+.card:hover{
+transition: 0.6s all;
+box-shadow: 0 0 8px var(--ternary-color) !important;
+}
+.card:hover img{
+transform: scale(1.1);
+transition: transform 0.6s ;
+}
+.card-title{
+  font-size: 15px !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: black !important;
+
+}
+.card-title:hover{
+color: #dc3545 !important;
+cursor: pointer;
+text-decoration: underline;
+
+}
+
+.discount-badge {
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  z-index: 10;
+}
+
+.stars svg {
+  margin-right: 5px !important;
+  fill: goldenrod !important;
+}
+
+.c-price {
+  font-weight: bold !important;
+  color: #181d25e0 !important;
+}
+.btn:hover{
+background-color: var(--secondary-color) !important;
+color: white;
+}
+.btn:hover svg{
+transform: rotate(360deg);
+transition: .5s transform;
+fill: white;
+}
+
+@media (max-width: 576px) {
+  .card-sid {
+      margin-top: 70px;
+  }
+}
