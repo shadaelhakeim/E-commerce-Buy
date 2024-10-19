@@ -1,10 +1,12 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../sidebarCategory/SidebarCategory.css';
-import { ListFilterIcon } from 'lucide-react';
-import {  BsCoin } from 'react-icons/bs';
+import React, { useState } from "react";
+import { ListFilterIcon } from "lucide-react";
+import { BsCoin } from "react-icons/bs";
+import "./SidebarCategory.css";
 
 const SidebarCategory = ({ setCategory, setPriceRange }) => {
+  // State to handle sidebar toggle on small screens
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   // to handle category filtration
   const handleCategoryProducts = (e) => {
     const selectedCategory = e.target.getAttribute('data-value');
@@ -13,49 +15,61 @@ const SidebarCategory = ({ setCategory, setPriceRange }) => {
 
   // to handle price filtration
   const handlePriceChange = (e) => {
-    const priceRange = JSON.parse(e.target.value);  // Parse the array string
+    const priceRange = JSON.parse(e.target.value); // Parse the array string
     setPriceRange(priceRange);
   };
 
   return (
     <div>
-      <div className='flex m-side d-none d-sm-none d-md-block'>
-        
-        <div className='d-flex title'>
-          <ListFilterIcon size={24} className='d-flex align-self-center' />
-          <p>Categories</p>
-        </div>
-        <div className='m-main'>
-          <p data-value='tv' onClick={handleCategoryProducts}>TV</p>
-          <p data-value='audio' onClick={handleCategoryProducts}>Audio</p>
-          <p data-value='laptop' onClick={handleCategoryProducts}>Laptop</p>
-          <p data-value='mobile' onClick={handleCategoryProducts}>Mobile</p>
-          <p data-value='gaming' onClick={handleCategoryProducts}>Gaming</p>
-          <p data-value='appliances' onClick={handleCategoryProducts}>Appliances</p>
-        </div>
+      {/* Filter Button for Small Screens */}
+      <div className="d-sm-block d-md-none mb-3">
+        <button
+          className="btn btn-outline-primary side-btn"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          <ListFilterIcon size={20} className="me-2" />
+          Filters
+        </button>
+      </div>
 
-        {/* Price Filter */}
-        <div className='d-flex title'>
-                  {/* <ListFilterIcon size={24} className='d-flex align-self-center' /> */}
-                  <BsCoin   size={16} className='d-flex align-self-center'/>
-          <p  className='p-title'>Filter by Price</p>
-        </div>
-        <div className='m-main'>
-          <div className='d-flex mb-3'>
-            <input className="form-check-input " type="radio" name="price" value="[0,2000]" onChange={handlePriceChange} />
-            <label  className="ms-3">All</label>
+      {/* Sidebar Content */}
+      <div className={`sidebar-body ${isSidebarOpen ? "d-block" : "d-none d-md-block"}`}>
+        <div className="flex m-side">
+          <div className="d-flex title">
+            <ListFilterIcon size={24} className="d-flex align-self-center" />
+            <p>Categories</p>
           </div>
-          <div className='d-flex mb-3'>
-            <input className="form-check-input " type="radio" name="price" value="[0,500]" onChange={handlePriceChange} />
-            <label  className="ms-3">$0 - $500</label>
+          <div className="m-main">
+            <p data-value="tv" onClick={handleCategoryProducts}>TV</p>
+            <p data-value="audio" onClick={handleCategoryProducts}>Audio</p>
+            <p data-value="laptop" onClick={handleCategoryProducts}>Laptop</p>
+            <p data-value="mobile" onClick={handleCategoryProducts}>Mobile</p>
+            <p data-value="gaming" onClick={handleCategoryProducts}>Gaming</p>
+            <p data-value="appliances" onClick={handleCategoryProducts}>Appliances</p>
           </div>
-          <div className='d-flex mb-3'>
-            <input className="form-check-input " type="radio" name="price" value="[500,1000]" onChange={handlePriceChange} />
-            <label  className="ms-3">$500 - $1000</label>
+
+          {/* Price Filter */}
+          <div className="d-flex title">
+            <BsCoin size={16} className="d-flex align-self-center" />
+            <p className="p-title">Prices</p>
           </div>
-          <div className='d-flex mb-3'>
-            <input className="form-check-input" type="radio" name="price" value="[1000,5000]" onChange={handlePriceChange} />
-            <label className="ms-3">$1000 - $2000</label>
+          <div className="m-main">
+            <div className="d-flex mb-3">
+              <input className="form-check-input" type="radio" name="price" value="[0,2000]" onChange={handlePriceChange} />
+              <label className="ms-3">All</label>
+            </div>
+            <div className="d-flex mb-3">
+              <input className="form-check-input" type="radio" name="price" value="[0,500]" onChange={handlePriceChange} />
+              <label className="ms-3">$0 - $500</label>
+            </div>
+            <div className="d-flex mb-3">
+              <input className="form-check-input" type="radio" name="price" value="[500,1000]" onChange={handlePriceChange} />
+              <label className="ms-3">$500 - $1000</label>
+            </div>
+            <div className="d-flex mb-3">
+              <input className="form-check-input" type="radio" name="price" value="[1000,5000]" onChange={handlePriceChange} />
+              <label className="ms-3">$1000 - $2000</label>
+            </div>
           </div>
         </div>
       </div>

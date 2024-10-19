@@ -6,10 +6,10 @@ import SidebarCategory from "../../components/sidebarCategory/SidebarCategory";
 import "./ProductPage.css";
 import { BiErrorCircle } from "react-icons/bi";
 import Navbar from "../../components/Header/Header";
-import FilterForMobile from "../../components/filterForMobile/FilterForMobile";
 import { Search } from "lucide-react";
+import Loading from "../../components/Loading";
 
-const ProductPage = (userData, logout) => {
+const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("mobile");
@@ -72,20 +72,25 @@ const ProductPage = (userData, logout) => {
   };
 
   return (
+    <>
+      <Navbar/>
     <div className="mt-5">
-      <Navbar userData={userData} logout={logout} />
-      <div className="d-flex sm:d-block ">
-        <SidebarCategory setCategory={setCategory} setPriceRange={setPriceRange} />
-        <div className="container d-flex justify-content-center my-4 px-6">
-          <FilterForMobile setCategory={setCategory} setPriceRange={setPriceRange} />
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 pt-3">
-            {/* Conditionally render the search input only when not loading */}
+        <div className="d-flex sm:d-block ">
+           {!loading && (
+              <div>
+               <SidebarCategory setCategory={setCategory} setPriceRange={setPriceRange} />
+              </div>
+              )}
+       
+        <div className=" product-body container-fluid d-flex justify-content-center my-4 px-6">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 pt-3 product-body-sec">
+            {/* render the search input only when not loading */}
             {!loading && (
-              <div className="input-group mb-3">
+              <div className="input-group search-icon mb-custom">
                 <span className="input-group-text d-block" id="basic-addon1">
                   <Search />
                 </span>
-                <form onSubmit={handleSearch}>
+                <form onSubmit={handleSearch} className="form-body">
                   <input
                     type="text"
                     className="form-control"
@@ -95,13 +100,12 @@ const ProductPage = (userData, logout) => {
                   />
                 </form>
               </div>
-            )}
+              )}
+              
 
             {loading ? (
               <div className="d-flex justify-content-center align-self-center w-100">
-                <div className="spinner-border text-warning" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
+                <Loading />
               </div>
             ) : products.length === 0 ? (
               <div className="notfount d-flex ">
@@ -110,13 +114,14 @@ const ProductPage = (userData, logout) => {
               </div>
             ) : (
               products.map((product, id) => (
-                <ProductCard key={id} product={product} addToCart={addToCart} />
+                <ProductCard key={id} product={product}/>
               ))
             )}
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

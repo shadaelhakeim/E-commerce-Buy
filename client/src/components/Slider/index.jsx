@@ -45,7 +45,7 @@ const Slider = () => {
         <div className="slide-text">
           <p>{slides[currentIndex].text}</p>
           <h2>{slides[currentIndex].title}</h2>
-          <button onClick={()=>{navigate("/product")}}>{slides[currentIndex].button}</button>
+          <button onClick={()=>{navigate("/products")}}>{slides[currentIndex].button}</button>
         </div>
         <div className="slide-image">
           <img

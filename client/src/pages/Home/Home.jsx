@@ -1,50 +1,60 @@
-import React from "react";
 import Navbar from "../../components/Header/Header";
 import "./style.css";
 import Slider from "../../components/Slider/index";
-import NewArrival from '../../components/NewArrival/index'
+import NewArrival from "../../components/NewArrival/index";
+import TrendingProducts from "../../components/TrendingProducts/index";
+import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
+import { DataContext } from "../../context/DataContext";
+import Footer from "../../components/Footer/Footer";
+import Icons from "../../components/Icons";
+import Brands from "../../components/Brands";
+import News from "../../components/NewsSection";
+import Copon from "../../components/Coupon";
+
+export default function Home() {
 
 
-export default function Home({ logout, userData }) {
+  let [products, setProducts] = useState([]);
+  let [blogs, setBlogs] = useState([]);
+  function getProducts() {
+    axios
+      .get("https://fakestoreapi.in/api/products")
+      .then((res) => {
+        setProducts(res.data.products);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }
+  function getBlog() {
+    axios
+      .get(
+        "https://newsapi.org/v2/top-headlines?category=technology&apikey=f2f3a3d9db104c22a5b2182cfc5623aa"
+      )
+      .then((res) => {
+        console.log("No error", res.data.articles);
+        setBlogs(res.data.articles);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+  }
+  useEffect(() => {
+    getProducts();
+    getBlog();
+  }, []);
   return (
     <div className="home-content">
-      <Navbar userData={userData} logout={logout} />
+      <Navbar />
       <Slider />
-      <div className="icons">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-6 col-lg-3 mb-4">
-              <div className="icon text-center">
-                <i className="fa-solid fa-truck mb-5 fs-3"></i>
-                <h6>Free Shipping & Returns</h6>
-                <p className="text-muted">For all orders over $199.00</p>
-              </div>
-            </div>
-            <div className="col-12 col-md-6 col-lg-3 mb-4">
-              <div className="icon text-center">
-                <i className="fa-solid fa-credit-card mb-5 fs-3"></i>
-                <h6>Secure Payment</h6>
-                <p className="text-muted">We ensure secure payment</p>
-              </div>
-            </div>
-            <div className="col-12 col-md-6 col-lg-3 mb-4">
-              <div className="icon text-center">
-                <i className="fa-solid fa-rotate-left mb-5 fs-3"></i>
-                <h6>Money Back Guarantee</h6>
-                <p className="text-muted">Returning money 30 days</p>
-              </div>
-            </div>
-            <div className="col-12 col-md-6 col-lg-3 mb-4">
-              <div className="icon text-center">
-                <i className="fa-regular fa-comments mb-5 fs-3"></i>
-                <h6>24/7 Customer Support</h6>
-                <p className="text-muted">Friendly customer support</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <NewArrival />
+      <Icons />
+      <NewArrival products={products} />
+      <TrendingProducts products={products} />
+      <Copon />
+      <Brands />
+      <News blogs={blogs} />
+      <Footer />
     </div>
   );
 }

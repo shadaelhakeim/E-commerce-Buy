@@ -1,10 +1,10 @@
 // App.js or HomePage.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react"; 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { Navigate, Route, Routes } from "react-router-dom";
 // import lucide-react
 import Home from "./pages/Home/Home";
 import SignUp from "./pages/Signup/index";
@@ -17,29 +17,28 @@ import ProductPage from "./pages/product/ProductPage";
 import ProductDetails from "./pages/productDetails/ProductDetails";
 import CartPage from "./pages/cartPage/CartPage";
 import Wishlist from "./pages/wishList page/WishList";
+import { DataContext } from "./context/DataContext";
+import {jwtDecode} from "jwt-decode";
 // import FAQ from "./pages/FAQ/FAQ";
 // import PrivacyPolicy from "./pages/privacyPolicy/index";
 // import UsingPrivacy from "./pages/usingPrivacy";
 // import ItellectualProperty from "./pages/itellectualProperty";
 const App = () => {
-  let navigate = useNavigate();
-  let [userData, SetUserData] = useState(null);
+ const {setUserData } = useContext(DataContext); // تأكد من أنك جلبت setUserData هنا
+
+  // دالة حفظ بيانات المستخدم
   function saveUserData() {
     if (localStorage.getItem("token")) {
       let encodeToken = localStorage.getItem("token");
       let decodeToken = jwtDecode(encodeToken);
-      SetUserData(decodeToken);
+      setUserData(decodeToken); 
     }
   }
 
-  function logout() {
-    localStorage.removeItem("token");
-    SetUserData(null);
-    navigate("/login");
-  }
   useEffect(() => {
-    saveUserData();
-  }, []);
+    saveUserData(); 
+  }, []); 
+
 
   function ProtectRoute(props) {
     if (localStorage.getItem("token")) {
@@ -51,10 +50,7 @@ const App = () => {
   return (
     <Routes>
       {localStorage.getItem("token") ? (
-        <Route
-          path="/"
-          element={<Home logout={logout} userData={userData} />}
-        />
+        <Route path="/" element={<Home />} />
       ) : (
         <Route path="/" element={<Navigate to="/signup" />} />
       )}
@@ -65,7 +61,7 @@ const App = () => {
         path="/home"
         element={
           <ProtectRoute>
-            <Home logout={logout} userData={userData} />
+            <Home />
           </ProtectRoute>
         }
       />
@@ -73,47 +69,58 @@ const App = () => {
       <Route path="/confirmCode" element={<ConfirmCode />} />
       <Route
         path="/blog"
-        logout={logout}
-        userData={userData}
-        element={<TechBlog />}
+        element={
+          <ProtectRoute>
+            <TechBlog />
+          </ProtectRoute>
+        }
       />
       <Route
         path="/about"
-        logout={logout}
-        userData={userData}
-        element={<AboutSection />}
+        element={
+          <ProtectRoute>
+            <AboutSection />
+          </ProtectRoute>
+        }
       />
       <Route
         path="/product"
-        logout={logout}
-        userData={userData}
-        element={<ProductPage />}
+        element={
+          <ProtectRoute>
+            <ProductPage />
+          </ProtectRoute>
+        }
       />
       <Route
         path="/productDetails/:id"
-        logout={logout}
-        userData={userData}
-        element={<ProductDetails />}
+        element={
+          <ProtectRoute>
+            <ProductDetails />
+          </ProtectRoute>
+        }
       />
-      <Route
-        path="/Cart"
-        logout={logout}
-        userData={userData}
-        element={<CartPage />}
-      />
-      <Route
+       <Route
         path="/WishList"
-        logout={logout}
-        userData={userData}
-        element={<Wishlist />}
+        element={
+          <ProtectRoute>
+            <Wishlist />
+          </ProtectRoute>
+        }
       />
+      <Route
+          path="/Cart"
+        element={
+          <ProtectRoute>
+            <CartPage />
+          </ProtectRoute>
+        }
+      /> 
       <Route
         path="*"
-        element={<h1 className=" mt-5 text-center text-light">NOT FOUND !</h1>}
+        element={<h1 className=" mt-5 text-center text-danger">NOT FOUND !</h1>}
       />
     </Routes>
-
-    //  <div className="container">
+      //  <div className="container">
     //
     //    <h1> Pisho Work Here</h1>
     //    <>
@@ -128,7 +135,6 @@ const App = () => {
 };
 
 export default App;
-
 /*
   This is the main application file for the React project.
 

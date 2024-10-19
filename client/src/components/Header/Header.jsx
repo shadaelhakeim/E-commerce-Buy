@@ -1,39 +1,40 @@
-import React, { useState , useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect ,useContext  } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
+import { DataContext } from "../../context/DataContext";
 import { BiHeart } from "react-icons/bi";
 
-export default function Navbar({ userData, logout }) {
-  const [isNavCollapsed, setIsNavCollapsed] = useState(true); // حالة القائمة (مغلقة أو مفتوحة)
-  const [activeLink, setActiveLink] = useState("/home"); // بدء التفعيل على "/home"
-  const [cartCount, setCartCount] = useState(0);
-
-  const handleLinkClick = (link) => {
-    setActiveLink(link); // تعيين الرابط النشط عند النقر
-    setIsNavCollapsed(true); // إغلاق القائمة بعد اختيار العنصر
-  };
-
-  const toggleNavCollapse = () => {
-    setIsNavCollapsed(!isNavCollapsed); // فتح أو غلق القائمة عند الضغط على زر القائمة
-  };
+export default function Navbar() {
+    const { userData, logout } = useContext(DataContext);
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true); 
+  const location = useLocation(); 
+  const [activeLink, setActiveLink] = useState(location.pathname); 
+ const [cartCount, setCartCount] = useState(0);
 
   const updateCartCount = () => {
     const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
     const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     setCartCount(totalCount);
   };
-
   useEffect(() => {
-    // Update cart count on page load
-    updateCartCount();
+    setActiveLink(location.pathname); 
+  }, [location.pathname]);
 
-    // Listen for cart updates
-    window.addEventListener("cartUpdated", updateCartCount);
+   useEffect(() => {
+     // Update cart count on page load
+     updateCartCount();
 
-      return () => {
-      window.removeEventListener("cartUpdated", updateCartCount);
-    };
-  }, []);
+     // Listen for cart updates
+     window.addEventListener("cartUpdated", updateCartCount);
+
+     return () => {
+       window.removeEventListener("cartUpdated", updateCartCount);
+     };
+   }, []);
+
+  const toggleNavCollapse = () => {
+    setIsNavCollapsed(!isNavCollapsed); // فتح أو غلق القائمة عند الضغط على زر القائمة
+  };
 
   return (
     <nav className="navbar navbar-expand-lg fixed-top shadow">
@@ -59,7 +60,7 @@ export default function Navbar({ userData, logout }) {
           </div>
         </button>
         <div
-          className={`navbar-collapse ${!isNavCollapsed ? "active" : ""}`} // إضافة كلاس active عند فتح القائمة
+          className={`navbar-collapse ${!isNavCollapsed ? "active" : ""}`}
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav me-auto mb-1 mb-lg-0">
@@ -68,7 +69,6 @@ export default function Navbar({ userData, logout }) {
                 className={`nav-link ${activeLink === "/home" ? "active" : ""}`}
                 aria-current="page"
                 to="/home"
-                onClick={() => handleLinkClick("/home")}
               >
                 Home
               </Link>
@@ -80,21 +80,8 @@ export default function Navbar({ userData, logout }) {
                 }`}
                 aria-current="page"
                 to="/product"
-                onClick={() => handleLinkClick("/product")}
               >
                 Products
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className={`nav-link ${
-                  activeLink === "/customerInfo" ? "active" : ""
-                }`}
-                aria-current="page"
-                to="/customerInfo"
-                onClick={() => handleLinkClick("/customerInfo")}
-              >
-                Customer Info
               </Link>
             </li>
             <li className="nav-item">
@@ -102,7 +89,6 @@ export default function Navbar({ userData, logout }) {
                 className={`nav-link ${activeLink === "/blog" ? "active" : ""}`}
                 aria-current="page"
                 to="/blog"
-                onClick={() => handleLinkClick("/blog")}
               >
                 Blog
               </Link>
@@ -114,26 +100,20 @@ export default function Navbar({ userData, logout }) {
                 }`}
                 aria-current="page"
                 to="/about"
-                onClick={() => handleLinkClick("/about")}
               >
                 About us
               </Link>
             </li>
           </ul>
-          <ul className="navbar-nav ms-auto mb-1 mb-lg-0">
-            <li className="nav-item d-flex justify-content-between align-items-center">
-              <i className="fa-brands fa-facebook"></i>
-              <i className="fa-brands fa-twitter"></i>
-              <i className="fa-brands fa-instagram"></i>
-            </li>
-             <li className="nav-item">
-              <Link className="nav-link" to="/WishList">
-               <BiHeart size={20} /> 
+          <ul className="navbar-nav ms-auto mb-1 mb-lg-0 align-items-baseline">
+            <li className="nav-item">
+              <Link className="nav-link  fav-link" to="/WishList">
+                <BiHeart size={20} />
               </Link>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <Link className="nav-link" to="/cart">
-               <i className="fa-solid fa-cart-shopping"></i> ({cartCount})
+                <i className="fa-solid fa-cart-shopping"></i> ({cartCount})
               </Link>
             </li>
             <span className="me-2 fw-bold" onClick={logout}>

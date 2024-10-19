@@ -3,17 +3,41 @@
     --secondary-color: #222934;
     --ternary-color: #AFCDEF;
 }
-.m-side{
+/* .sidebar-body{
+  width: 19%;
+} */
+.sidebar-body {
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+}
 
-          text-transform: capitalize;
-          width: 118%;
-          height: 100%;
+@media (max-width: 767.98px) {
+  .sidebar-body {
+    display: none;
+    /* Initially hidden on small screens */
+  }
+}
+
+.m-side {
+  text-transform: capitalize;
+  width: 100%;
+  height: 100%;
   background-color: rgb(238 237 237 / 45%);
-      border-right: 1px solid rgb(202 202 202 / 64%);
-          color: black;
-          font-family: system-ui;
-          font-weight: 500;
-         
+  border-right: 1px solid rgb(202 202 202 / 64%);
+  color: black;
+  font-family: system-ui;
+  font-weight: 500;
+}
+.side-btn{
+      position: absolute;
+        top: 22%;
+        right: 10%;
+        width: fit-content;
+}
+
+.m-main p:hover {
+  color: var(--ternary-color);
 }
 
 .m-side p{

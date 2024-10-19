@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Star, StarHalf } from "lucide-react";
 import "./ProductCard.css"; // Custom styles for extra design
-import { BiCart } from "react-icons/bi";
+import {FaTag, FaShoppingCart} from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-const ProductCard = ({ product , addToCart}) => {
+import { DataContext } from "../../context/DataContext";
+const ProductCard = ({ product}) => {
+      const { addToCart} = useContext(DataContext);
   // Check if product is defined before trying to use its properties
   if (!product || !product.price) {
-    return ;
+    return;
   }
 
   // Function to calculate the discounted price
@@ -26,8 +27,8 @@ const ProductCard = ({ product , addToCart}) => {
     <div className="col card-sid mb-4">
       <div className="card h-100 shadow-sm position-relative">
         {product.discount && (
-          <div className="position-absolute top-0 start-0 bg-danger text-white px-2 py-1 discount-badge">
-            -{product.discount}%
+          <div className="sale">
+            <FaTag /> -{product.discount}%
           </div>
         )}
         <Link to={`/productDetails/${product.id}`}>
@@ -38,13 +39,18 @@ const ProductCard = ({ product , addToCart}) => {
           />
         </Link>
         <div className="card-body">
-          <div className="d-flex align-items-center mb-2">
-            <Star size={14} className="stars fill-goldenrod text-warning" />
-            <Star size={14} className="stars fill-goldenrod text-warning" />
-            <Star size={14} className="stars fill-goldenrod text-warning" />
-            <Star size={14} className="stars fill-goldenrod text-warning" />
-            <StarHalf size={14} className="stars fill-goldenrod text-warning" />
-          </div>
+           <div className="d-flex align-items center">
+                          <div className="stars d-flex text-warning ">
+                            <i className="fas fa-star me-1"></i>
+                            <i className="fas fa-star me-1"></i>
+                            <i className="fas fa-star me-1"></i>
+                            <i className="fas fa-star me-1"></i>
+                            <i className="fas fa-star-half-alt me-1"></i>
+                          </div>
+                          <small>
+                            ({product.discount ? product.discount : 0})
+                          </small>
+                        </div>
 
           <Link to={`/productDetails/${product.id}`}>
             <h5 className="card-title">
@@ -71,9 +77,9 @@ const ProductCard = ({ product , addToCart}) => {
                 </span>
               )}
             </div>
-            <button className="btn btn-outline-secondary" onClick={() => addToCart(product)}>
-              <BiCart size={24} />
-            </button>
+              <div className="shop-cart">
+                <FaShoppingCart onClick={() => addToCart(product)}/>
+              </div>
           </div>
         </div>
       </div>

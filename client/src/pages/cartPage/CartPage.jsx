@@ -67,12 +67,12 @@ const CartPage = (userData, logout) => {
           </ul>
             {/* Subtotal, Tax, and Grand Total */}
             <div className="subtotal">
-          <h6 className="mt-3"><span>Subtotal:</span> ${calculateSubtotal()}</h6>
-          <h6 className="mt-3 text-secondary disabled"><span className="text-secondary disabled">Sales Tax (10%):</span> ${calculateTax(calculateSubtotal())}</h6>
-          <h6 className="mt-3"><span>Grand Total:</span> ${calculateGrandTotal(calculateSubtotal(), calculateTax(calculateSubtotal()))}</h6>
+          <h6 className="mt-3 subtotal-t"><span>Subtotal:</span> ${calculateSubtotal()}</h6>
+          <h6 className="mt-3 subtotal-t text-secondary disabled"><span className="text-secondary disabled">Sales Tax (10%):</span> ${calculateTax(calculateSubtotal())}</h6>
+          <h6 className="mt-3 subtotal-t"><span>Grand Total:</span> ${calculateGrandTotal(calculateSubtotal(), calculateTax(calculateSubtotal()))}</h6>
           </div>
           {/* Checkout Button */}
-          <button className="checkout-btn mt-3">Check Out</button>
+          <button className="checkout-btn subtotal-t mt-3">Check Out</button>
         </>
       )}
     </div>

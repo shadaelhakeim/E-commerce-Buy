@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext } from "react";
+import { DataContext } from "../../context/DataContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./ProductDetails.css";
-import { BiArrowToBottom, BiCart, BiHeart } from "react-icons/bi";
+import { BiCart, BiHeart } from "react-icons/bi";
 import { BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Header/Header";
-const ProductDetails = (userData, logout) => {
+import Loading from "../../components/Loading";
+import ProductCard from "../../components/TrendingProducts/ProductCard";
+const ProductDetails = () => {
+  const { addToCart, addToWishlist } = useContext(DataContext);
   const { id } = useParams(); 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const handleWishlistClick = () => {
+    setIsFavorite(!isFavorite);
+    addToWishlist(product); 
+  };
+   const handleAddToCart = () => {
+   addToCart(product, quantity); 
+  };
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -28,54 +40,18 @@ const ProductDetails = (userData, logout) => {
     fetchProducts();
   }, [id]);
 
-  // Add to Cart logic
-  const addToCart = () => {
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    
-    const productExists = cartItems.find(item => item.id === product.id);
-    
-    if (productExists) {
-      productExists.quantity += quantity;
-    } else {
-      cartItems.push({
-        ...product,
-        quantity,
-      });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-
-    // Trigger a custom event to update cart count
-    const event = new Event("cartUpdated");
-    window.dispatchEvent(event);
-  };
-
-   // Add to Wishlist logic
-  const addToWishlist = () => {
-    const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
-
-    const productExists = wishlistItems.find((item) => item.id === product.id);
-
-    if (!productExists) {
-      wishlistItems.push(product); // Add product to wishlist if it's not already there
-    }
-
-    localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
-  };
-
-
   return (
     <>
       {loading ? (
         <div className="d-flex justify-content-center align-self-center  w-100">
-          <div className="spinner-border text-warning" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+           <div className="d-flex justify-content-center align-self-center w-100">
+                <Loading />
+              </div>
         </div>
       ) : (
           <>
-         <Navbar userData={userData} logout={logout} />
-        <div className="container-fluid mt-5 ">
+         <Navbar/>
+        <div className="container-fluid product-details mt-5 ">
           <div className="ms-5">
             <div className="d-flex mb-2">
               <div className="me-2">
@@ -144,11 +120,11 @@ const ProductDetails = (userData, logout) => {
 
               {/* Add to Cart */}
               <div className="d-flex">
-                <button className="btn btn-danger cart btn-lg me-3" onClick={addToCart}>
+                <button className="btn btn-danger cart btn-lg me-3" onClick={handleAddToCart}>
                   <BiCart size={20} /> Add to cart
                   
                 </button>
-                <button onClick={addToWishlist} className="btn favorites btn-outline-secondary btn-lg">
+                <button onClick={handleWishlistClick} className="btn favorites btn-outline-secondary btn-lg">
                   <BiHeart size={20} />
                 </button>
               </div>

@@ -81,10 +81,15 @@ a.active::after {
   width: 90%;
 }
 
-.fa-cart-shopping{
-  margin-left: 20px;
+.fav-link{
+      padding: 7px;
+        border: 1px solid;
+        border-radius: 50%;
 }
 
+.fav-link:hover svg{
+fill: var(--ternary-color);
+}
 @media (max-width: 990px) {
   .navbar-collapse {
     position: absolute; /* تعيين القائمة المنسدلة كعنصر مطلق */
