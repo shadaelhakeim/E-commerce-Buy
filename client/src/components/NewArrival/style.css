@@ -38,10 +38,14 @@
 .new-arrival .img-card .description button:hover {
   background-color: rgb(212, 48, 48);
 }
-/* .new-arrival .products {
-  margin: 9% auto 0;
-} */
 
+.card{
+transition: 1s;
+}
+.card:hover{
+  box-shadow: 0 0 8px var(--ternary-color) !important;
+  transform: scale(1.05);
+}
 
 @media (max-width: 500px) {
   .img-card {

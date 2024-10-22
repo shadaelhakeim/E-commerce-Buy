@@ -2,7 +2,7 @@
 .container-content {
   height: 100vh;
   overflow: hidden;
-  background-image: linear-gradient(to right bottom, #f3679c, #e383c7, #ca9ee4, #b4b5f1, #a1afe1, #93a8cf, #89a0bc, #6e8097, #536174, #3a4453, #222934);
+  background-image: linear-gradient(to left top, #f3679c, #e383c7, #ca9ee4, #b4b5f1, #a1afe1, #93a8cf, #89a0bc, #6e8097, #536174, #3a4453, #222934);
 }
 .container-content .custom-font {
   font-family: "Dancing Script", cursive !important;

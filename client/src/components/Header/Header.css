@@ -47,11 +47,11 @@ nav ul span {
   margin-right: 15px;
   color: white !important;
 }
-nav ul i:hover,
+ nav ul i:hover,
 nav ul a:hover,
 nav ul span:hover {
   color: var(--ternary-color) !important;
-}
+} 
 nav ul i {
   font-size: 18px;
 }
@@ -70,9 +70,12 @@ nav ul a::after {
   left: 0;
   transition: width 0.5s ease;
 }
+.nav-heart a::after{
+  background-color: transparent;
+}
 nav ul a:hover::after {
   width: 90%;
-}
+} 
 
 a.active {
   color: var(--ternary-color) !important;
@@ -89,22 +92,22 @@ a.active::after {
 
 .fav-link:hover svg{
 fill: var(--ternary-color);
-}
+} 
 @media (max-width: 990px) {
   .navbar-collapse {
-    position: absolute; /* تعيين القائمة المنسدلة كعنصر مطلق */
-    top: 70px; /* محاذاة القائمة مباشرة تحت الـ navbar */
-    left: 0; /* وضع القائمة على الجانب الأيسر */
-    transform: translateX(-250px); /* تحريك القائمة إلى اليسار خارج الشاشة */
+    position: absolute; 
+    top: 70px; 
+    left: 0; 
+    transform: translateX(-250px); 
     padding: 20px !important;
     width: 250px;
     height: 100vh;
-    background-color: var(--secondary-color); /* لون خلفية القائمة المنسدلة */
-    border-radius: 0 0 5px 5px; /* زوايا القائمة */
+    background-color: var(--secondary-color); 
+    border-radius: 0 0 5px 5px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    opacity: 0; /* إخفاء القائمة عند الإغلاق */
-    visibility: hidden; /* منع العرض */
+    opacity: 0; 
+    visibility: hidden; 
   }
   .navbar-collapse ul li {
     margin-bottom: 20px !important;

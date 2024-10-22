@@ -4,8 +4,26 @@ import slide1 from "../../images/01.png";
 import slide2 from "../../images/02.png";
 import slide3 from "../../images/03.png";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from 'framer-motion';
+import { X } from "lucide-react";
 const Slider = () => {
+  const containerVariants = {
+    hidden: { opacity: 0, X: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.2,
+        ease: 'easeInOut',
+        duration: 0.8,
+      },
+    },
+  };
+   const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   let navigate = useNavigate()
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -41,19 +59,19 @@ const Slider = () => {
 
   return (
     <div className="slider-container">
-      <div className="slide d-flex flex-column flex-md-row" key={currentIndex}>
-        <div className="slide-text">
-          <p>{slides[currentIndex].text}</p>
-          <h2>{slides[currentIndex].title}</h2>
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="slide d-flex flex-column flex-md-row" key={currentIndex}>
+        <motion.div variants={itemVariants} initial="hidden" animate="visible" className="slide-text">
+          <motion.p>{slides[currentIndex].text}</motion.p>
+          <motion.h2>{slides[currentIndex].title}</motion.h2>
           <button onClick={()=>{navigate("/products")}}>{slides[currentIndex].button}</button>
-        </div>
-        <div className="slide-image">
+        </motion.div>
+        <motion.div variants={itemVariants} initial="hidden" animate="visible" className="slide-image">
           <img
             src={slides[currentIndex].image}
             alt={`Slide ${currentIndex + 1}`}
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       <div className="slider-indicators">
         {slides.map((_, index) => (
           <span

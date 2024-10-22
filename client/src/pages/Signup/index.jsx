@@ -90,9 +90,7 @@ export default function SignUp() {
   }
   function handleRegister(e) {
     e.preventDefault();
-    // تسجيل بيانات المستخدم
     const newUser = { email: data.email };
-    // حفظ البريد الإلكتروني في Local Storage
     const registeredUsers =
       JSON.parse(localStorage.getItem("registeredUsers")) || [];
     registeredUsers.push(newUser);
@@ -119,7 +117,7 @@ export default function SignUp() {
     <div className="container-content">
       <div className="brand  ms-5 mt-2">
         <div className="d-flex align-items-center">
-          <i class="fa-solid fa-cart-shopping"></i>
+          <i className="fa-solid fa-cart-shopping"></i>
           <h4 className="custom-font mt-3 fw-bold">BuyItAll</h4>
         </div>
       </div>

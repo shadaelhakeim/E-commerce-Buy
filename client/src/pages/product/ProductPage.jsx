@@ -8,7 +8,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import Navbar from "../../components/Header/Header";
 import { Search } from "lucide-react";
 import Loading from "../../components/Loading";
-
+import Footer from "../../components/Footer/Footer";
 const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -77,16 +77,15 @@ const ProductPage = () => {
     <div className="mt-5">
         <div className="d-flex sm:d-block ">
            {!loading && (
-              <div>
+              <div className="">
                <SidebarCategory setCategory={setCategory} setPriceRange={setPriceRange} />
               </div>
               )}
        
         <div className=" product-body container-fluid d-flex justify-content-center my-4 px-6">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 pt-3 product-body-sec">
-            {/* render the search input only when not loading */}
-            {!loading && (
-              <div className="input-group search-icon mb-custom">
+
+          {!loading && (
+              <div className="input-group search-icon mb-custom ">
                 <span className="input-group-text d-block" id="basic-addon1">
                   <Search />
                 </span>
@@ -100,11 +99,14 @@ const ProductPage = () => {
                   />
                 </form>
               </div>
-              )}
+            )}
+            
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 pt-3 product-body-sec">
+            {/* render the search input only when not loading */}
               
 
             {loading ? (
-              <div className="d-flex justify-content-center align-self-center w-100">
+              <div className="loading-container">
                 <Loading />
               </div>
             ) : products.length === 0 ? (
@@ -117,10 +119,16 @@ const ProductPage = () => {
                 <ProductCard key={id} product={product}/>
               ))
             )}
-          </div>
+            </div>
         </div>
-      </div>
+        </div>
+
     </div>
+            {!loading && (
+              <div>
+             <Footer />
+              </div>
+            )}
     </>
   );
 };

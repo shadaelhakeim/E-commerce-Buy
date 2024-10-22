@@ -4,21 +4,16 @@ import "./styles/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js"; // LoadStripe function
-import { Elements } from "@stripe/react-stripe-js";
 import { DataProvider } from "./context/DataContext";
-const stripePromise = loadStripe(
-  "pk_test_51Q9Vk62M98qASWQqc6u7n5Br3p6QrHcc1lwFHR4Z8AdGs6vbE3QBdE55uFgTxpnLY3D6xvlgYw6A8DrlqWynFMFL00OoSAg4i0"
-);
+import CartPage from "./pages/cartPage/CartPage"
+import PaymentPage from "./pages/PaymentPage/PaymentPage";
 
-// import ProductComponent from './components/ProductForStripe/productforstripe';
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <DataProvider>
-      <Elements stripe={stripePromise}>
         <App />
-      </Elements>
     </DataProvider>
   </BrowserRouter>
 );

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListFilterIcon } from "lucide-react";
 import { BsCoin } from "react-icons/bs";
 import "./SidebarCategory.css";
 
-const SidebarCategory = ({ setCategory, setPriceRange }) => {
+const SidebarCategory = ({ setCategory, priceRange, setPriceRange }) => {
   // State to handle sidebar toggle on small screens
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // to handle category filtration
   const handleCategoryProducts = (e) => {
-    const selectedCategory = e.target.getAttribute('data-value');
+    const selectedCategory = e.target.getAttribute("data-value");
     setCategory(selectedCategory);
   };
 
@@ -18,11 +18,14 @@ const SidebarCategory = ({ setCategory, setPriceRange }) => {
     const priceRange = JSON.parse(e.target.value); // Parse the array string
     setPriceRange(priceRange);
   };
-
+  useEffect(() => {
+    // Effect to handle state persistence
+    console.log("priceRange updated", priceRange);
+  }, [priceRange]);
   return (
-    <div>
+    <div className="side">
       {/* Filter Button for Small Screens */}
-      <div className="d-sm-block d-md-none mb-3">
+      <div className="d-sm-block d-md-none mb-3 side">
         <button
           className="btn btn-outline-primary side-btn"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -33,19 +36,35 @@ const SidebarCategory = ({ setCategory, setPriceRange }) => {
       </div>
 
       {/* Sidebar Content */}
-      <div className={`sidebar-body ${isSidebarOpen ? "d-block" : "d-none d-md-block"}`}>
+      <div
+        className={`sidebar-body ${
+          isSidebarOpen ? "d-block" : "d-none d-md-block"
+        }`}
+      >
         <div className="flex m-side">
           <div className="d-flex title">
             <ListFilterIcon size={24} className="d-flex align-self-center" />
             <p>Categories</p>
           </div>
           <div className="m-main">
-            <p data-value="tv" onClick={handleCategoryProducts}>TV</p>
-            <p data-value="audio" onClick={handleCategoryProducts}>Audio</p>
-            <p data-value="laptop" onClick={handleCategoryProducts}>Laptop</p>
-            <p data-value="mobile" onClick={handleCategoryProducts}>Mobile</p>
-            <p data-value="gaming" onClick={handleCategoryProducts}>Gaming</p>
-            <p data-value="appliances" onClick={handleCategoryProducts}>Appliances</p>
+            <p data-value="tv" onClick={handleCategoryProducts}>
+              TV
+            </p>
+            <p data-value="audio" onClick={handleCategoryProducts}>
+              Audio
+            </p>
+            <p data-value="laptop" onClick={handleCategoryProducts}>
+              Laptop
+            </p>
+            <p data-value="mobile" onClick={handleCategoryProducts}>
+              Mobile
+            </p>
+            <p data-value="gaming" onClick={handleCategoryProducts}>
+              Gaming
+            </p>
+            <p data-value="appliances" onClick={handleCategoryProducts}>
+              Appliances
+            </p>
           </div>
 
           {/* Price Filter */}
@@ -55,19 +74,53 @@ const SidebarCategory = ({ setCategory, setPriceRange }) => {
           </div>
           <div className="m-main">
             <div className="d-flex mb-3">
-              <input className="form-check-input" type="radio" name="price" value="[0,2000]" onChange={handlePriceChange} />
+              <input
+                className="form-check-input"
+                checked={
+                  JSON.stringify(priceRange) === JSON.stringify([0, 2000])
+                }
+                type="radio"
+                name="price"
+                value="[0,2000]"
+                onChange={handlePriceChange}
+              />
               <label className="ms-3">All</label>
             </div>
             <div className="d-flex mb-3">
-              <input className="form-check-input" type="radio" name="price" value="[0,500]" onChange={handlePriceChange} />
+              <input
+                className="form-check-input"
+                type="radio"
+                name="price"
+                value="[0,500]"
+                checked={
+                  JSON.stringify(priceRange) === JSON.stringify([0, 500])
+                }
+                onChange={handlePriceChange}
+              />
               <label className="ms-3">$0 - $500</label>
             </div>
             <div className="d-flex mb-3">
-              <input className="form-check-input" type="radio" name="price" value="[500,1000]" onChange={handlePriceChange} />
+              <input
+                className="form-check-input"
+                type="radio"
+                name="price"
+                value="[500,1000]"
+                checked={JSON.stringify(priceRange) === JSON.stringify([500, 1000])}
+                onChange={handlePriceChange}
+              />
               <label className="ms-3">$500 - $1000</label>
             </div>
             <div className="d-flex mb-3">
-              <input className="form-check-input" type="radio" name="price" value="[1000,5000]" onChange={handlePriceChange} />
+              <input
+                className="form-check-input"
+                type="radio"
+                name="price"
+                value="[1000,5000]"
+                checked={
+                  JSON.stringify(priceRange) === JSON.stringify([1000, 5000])
+                }
+                onChange={handlePriceChange}
+              />
               <label className="ms-3">$1000 - $2000</label>
             </div>
           </div>

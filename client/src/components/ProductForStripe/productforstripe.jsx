@@ -8,7 +8,8 @@ const ProductComponent = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const handlePayment = async (event) => {
+  const handlePayment = async (event) => 
+  {
     event.preventDefault();
   
     if (!stripe || !elements) {
@@ -31,7 +32,8 @@ const ProductComponent = () => {
       },
     });
   
-    if (error) {
+    if (error)
+     {
       console.error('Error confirming payment:', error);
     } else {
       console.log('Payment successful:', paymentMethod);

@@ -21,9 +21,9 @@ export default function NewArrival({ products }) {
   return (
     <div className="new-arrival mt-5 mb-5">
       <div className="container mt-2 mb-5">
-         <div className="seven">
-              <h1>New Arrival</h1>
-            </div>
+        <div className="seven">
+          <h1>New Arrival</h1>
+        </div>
         <div className="row  justify-content-around ">
           <div className="col-12 col-lg-4 mt-3 ">
             <div className="img-card">
@@ -33,10 +33,10 @@ export default function NewArrival({ products }) {
                 variants={animationVariants}
                 style={{
                   position: "absolute",
-                  top: "38%", // حدد الموضع العمودي
-                  left: "50%", // حدد الموضع الأفقي
-                  width: "290px", // حجم الصورة
-                  height: "auto", // ارتفاع الصورة
+                  top: "38%",
+                  left: "50%",
+                  width: "290px",
+                  height: "auto",
                   transform: "translate(-50%, -50%)",
                   zIndex: 2,
                 }}
@@ -65,10 +65,10 @@ export default function NewArrival({ products }) {
             </div>
           </div>
           {products.length > 0 ? (
-            <div className="col-12 col-lg-7 products">
-              <div className="row justify-content-around">
-                {products.slice(21, 25).map((product) => (
-                  <div key={product.id} className="col-12 col-md-6 mb-4">
+            <div className="col-12 col-lg-7 products d-flex justify-content-center align-items-center">
+              <div className="row justify-content-around g-3 w-100 w-sm-90">
+                {products.slice(21, 27).map((product) => (
+                  <div key={product.id} className="col-12 col-md-6">
                     <div className="card d-flex flex-row">
                       <img
                         src={product.image}
@@ -106,7 +106,7 @@ export default function NewArrival({ products }) {
               </div>
             </div>
           ) : (
-            <div className="col-12 col-lg-7 products d-flex justify-content-center align-items-center">
+            <div className=" col-12 col-lg-7 d-flex justify-content-center align-self-center">
               <Loading />
             </div>
           )}

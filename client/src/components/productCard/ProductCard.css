@@ -2,23 +2,23 @@
 a{
   text-decoration: none !important;
 }
-.card{
+.product-page .card{
   border: none !important;
   overflow: hidden;
 }
-.card img {
+.product-page .card img {
   max-height: 200px;
   object-fit: contain;
 }
-.card:hover{
+.product-page .card:hover{
 transition: 0.6s all;
 box-shadow: 0 0 8px var(--ternary-color) !important;
 }
-.card:hover {
+.product-page .card:hover {
   transform: scale(1.05);
 transition: transform 0.6s ;
 }
-.card-title{
+.product-page .card-title{
   font-size: 15px !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
   color: black !important;
@@ -27,7 +27,7 @@ transition: transform 0.6s ;
   white-space: nowrap;
 
 }
-.card-title:hover{
+.product-page .card-title:hover{
 color: #dc3545 !important;
 cursor: pointer;
 text-decoration: underline;
@@ -64,9 +64,12 @@ transform: rotate(360deg);
 transition: .5s transform;
 fill: white;
 }
+.img-center{
+  margin: 0 auto;
+}
 
-@media (max-width: 576px) {
-  .card-sid {
-      margin-top: 70px;
+@media (max-width:760px){
+  .product-page{
+    margin-top:80px !important;
   }
 }

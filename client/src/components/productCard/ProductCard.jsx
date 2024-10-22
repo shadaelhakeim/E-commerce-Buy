@@ -4,6 +4,7 @@ import "./ProductCard.css"; // Custom styles for extra design
 import {FaTag, FaShoppingCart} from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
+import { motion } from 'framer-motion';
 const ProductCard = ({ product}) => {
       const { addToCart} = useContext(DataContext);
   // Check if product is defined before trying to use its properties
@@ -23,15 +24,29 @@ const ProductCard = ({ product}) => {
     product.discount
   );
 
+   const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.2,
+        ease: 'easeInOut',
+        duration: 0.8,
+      },
+    },
+  };
+
+
   return (
-    <div className="col card-sid mb-4">
-      <div className="card h-100 shadow-sm position-relative">
+    <motion.div  variants={containerVariants} initial="hidden" animate="visible" className="col mb-4 product-page mt-1">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible" className="card h-100 shadow-sm position-relative">
         {product.discount && (
           <div className="sale">
             <FaTag /> -{product.discount}%
           </div>
         )}
-        <Link to={`/productDetails/${product.id}`}>
+        <Link  to={`/productDetails/${product.id}`} className="img-center">
           <img
             src={product.image || "default-image-url.jpg"} // Fallback for missing image
             className="card-img-top"
@@ -82,8 +97,8 @@ const ProductCard = ({ product}) => {
               </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

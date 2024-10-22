@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 // إنشاء Context جديد
 export const DataContext = createContext();
@@ -37,7 +38,11 @@ export const DataProvider = ({ children }) => {
         quantity,
       });
     }
-
+    Swal.fire({
+      icon: 'success',
+      title: 'Item added to Cart Successful',
+      text: `Item added to Cart Successful`,
+    });
     localStorage.setItem("cart", JSON.stringify(cartItems));
 
     // Trigger a custom event to update cart count

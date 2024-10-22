@@ -106,7 +106,7 @@ export default function Navbar() {
             </li>
           </ul>
           <ul className="navbar-nav ms-auto mb-1 mb-lg-0 align-items-baseline">
-            <li className="nav-item">
+            <li className="nav-item nav-heart">
               <Link className="nav-link  fav-link" to="/WishList">
                 <BiHeart size={20} />
               </Link>

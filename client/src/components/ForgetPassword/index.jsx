@@ -58,7 +58,7 @@ export default function ForgetPassword() {
     <div className="container-content">
       <div className="brand  ms-5 mt-2">
         <div className="d-flex align-items-center">
-          <i class="fa-solid fa-cart-shopping"></i>
+          <i className="fa-solid fa-cart-shopping"></i>
           <h4 className="custom-font mt-3 fw-bold">BuyItAll</h4>
         </div>
       </div>

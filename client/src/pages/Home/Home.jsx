@@ -4,8 +4,7 @@ import Slider from "../../components/Slider/index";
 import NewArrival from "../../components/NewArrival/index";
 import TrendingProducts from "../../components/TrendingProducts/index";
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import { DataContext } from "../../context/DataContext";
+import React, { useState, useEffect} from "react";
 import Footer from "../../components/Footer/Footer";
 import Icons from "../../components/Icons";
 import Brands from "../../components/Brands";
@@ -13,8 +12,6 @@ import News from "../../components/NewsSection";
 import Copon from "../../components/Coupon";
 
 export default function Home() {
-
-
   let [products, setProducts] = useState([]);
   let [blogs, setBlogs] = useState([]);
   function getProducts() {
@@ -33,7 +30,6 @@ export default function Home() {
         "https://newsapi.org/v2/top-headlines?category=technology&apikey=f2f3a3d9db104c22a5b2182cfc5623aa"
       )
       .then((res) => {
-        console.log("No error", res.data.articles);
         setBlogs(res.data.articles);
       })
       .catch((err) => {

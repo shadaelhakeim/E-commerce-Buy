@@ -8,7 +8,8 @@ import { BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Header/Header";
 import Loading from "../../components/Loading";
-import ProductCard from "../../components/TrendingProducts/ProductCard";
+import Footer from "../../components/Footer/Footer";
+import { motion } from 'framer-motion';
 const ProductDetails = () => {
   const { addToCart, addToWishlist } = useContext(DataContext);
   const { id } = useParams(); 
@@ -40,11 +41,29 @@ const ProductDetails = () => {
     fetchProducts();
   }, [id]);
 
+   const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.2,
+        ease: 'easeInOut',
+        duration: 0.8,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <>
       {loading ? (
         <div className="d-flex justify-content-center align-self-center  w-100">
-           <div className="d-flex justify-content-center align-self-center w-100">
+           <div className="loading-container">
                 <Loading />
               </div>
         </div>
@@ -72,34 +91,34 @@ const ProductDetails = () => {
           </div>
           <span className="span ms-5">General Info</span>
           <span className="span-border"></span>
-          <div className="row">
+          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="row">
             {/* Product Image */}
-            <div className="col-md-6 col-12">
+            <motion.div variants={itemVariants} initial="hidden" animate="visible" className="col-md-6 col-12">
               <img
                 src={product.image}
                 alt={product.title}
                 className="img-fluid product-image"
               />
-            </div>
+            </motion.div>
             {/* Product Details */}
             <div className="col-md-6 col-12 des-details">
-              <div>
+              <motion.div variants={itemVariants} initial="hidden" animate="visible">
                 <h5>Model</h5>
                 <p className="model-t mb-4">{product.model}</p>
-              </div>
-              <div className="d-flex">
-                <div>
+              </motion.div>
+              <motion.div variants={itemVariants} initial="hidden" animate="visible" className="d-flex">
+                <motion.div variants={itemVariants} initial="hidden" animate="visible">
                   <h5>Brand</h5>
                   <p className="text-secondary text-capitalize">
                     {product.brand}
                   </p>
-                </div>
-                <div className="color-d">
+                </motion.div>
+                <motion.div variants={itemVariants} initial="hidden" animate="visible" className="color-d">
                   <h5>Color</h5>
                   <p className="text-secondary">{product.color}</p>
-                </div>
-              </div>
-              <p className="py-3">{product.description}</p>
+                </motion.div>
+              </motion.div>
+              <motion.p variants={itemVariants} initial="hidden" animate="visible" className="py-3">{product.description}</motion.p>
 
               {/* Quantity Selector */}
               <div className="d-flex align-items-center mb-4">
@@ -130,7 +149,7 @@ const ProductDetails = () => {
               </div>
 
               {/* Shipping Information */}
-              <div className="shipping-info ">
+              <motion.div  variants={containerVariants} initial="hidden" animate="visible"className="shipping-info ">
                 <h6 className="mb-4 fs-5">Shipping options</h6>
                 <ul className="list-unstyled ">
                   <li>
@@ -149,7 +168,7 @@ const ProductDetails = () => {
                     <strong>$35.00</strong>
                   </li>
                 </ul>
-              </div>
+              </motion.div>
 
               {/* Warranty Information */}
               <div className="warranty-info ">
@@ -173,8 +192,9 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
             </div>
+            <Footer />
             </>
       )}
     </>

@@ -1,33 +1,89 @@
 import React from "react";
 import "./style.css";
 import Navbar from "../../components/Header/Header";
+import { motion } from "framer-motion";
+import Footer from '../../components/Footer/Footer'
 function AboutSection(userData, logout) {
   return (
-    <section className="about-section">
-      <Navbar userData={userData} logout={logout} />
-      <h2 className="section-title">BNONI SWAY</h2>
-      <div className="hero">
-        <div className="hero-desc">
-          <p className="section-description">
-            <h4>Main</h4>
-            <h3>who we are</h3>
-            The company of reasons was named after its purpose, which is to take
-            into account the reasons for life's affairs. The Bnoni Sway brand is
-            a registered Saudi trademark that specializes in enhancing fertility
-            naturally and safely, as well as in the field of care, perfumery,
-            and dietary supplements.
-          </p>
-          <button className="explore-button">Store</button>
-        </div>
+<>
+<div className="about-us-container">
+<Navbar userData={userData} logout={logout} />
+<motion.div
+  className="about-header"
+  initial={{ opacity: 0, y: -50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+>
+  <h1 className="about-title">About Buy It All</h1>
+  <p className="about-subtitle">
+    Your trusted tech hardware supplier since 2001
+  </p>
+</motion.div>
 
-        <div className="logo-container">
-          <img
-            src="https://s3-alpha-sig.figma.com/img/c146/e61d/9816db2d3585942d448ec841f6caf700?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZeHi5mjjG9VoUAfrthYDkCRVvCTrYDkaxhC-zaCUtaxXnaISQalYtULZPkxUZcieNmS2sEhiq05GmHQmsgDvGMVDXqe9tf9g0TmCrX-8wq~n9WHkSb~9znAy9dk1EMzFWixv54L3xs0V3fbUIPgw5pXmnqlwUpNeqLGjIu8vnOePCSNk5K5gu1TxEWJEdCISn2C-0iWPnaf18tbeUUk-W~ncxvI6NCYMvHdHEOjifkVYRYCE3H7FaFQY7ytOefFqedLqF1Xm0yjEu5m6pDPGB0jzQmjdkrit3UhS-axaGZq4-hRo93wp119zK3XEHMxyl5JJJ6YMyxboHqJbycaFVQ__"
-            alt="BNONI SWAY Logo"
-          />
-        </div>
-      </div>
-    </section>
+<div className="about-content">
+  <motion.div
+    className="about-text"
+    initial={{ opacity: 0, x: -50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  >
+    <h2>Who We Are</h2>
+    <p>
+      Established in 2001, Buy It All has been providing top-quality tech
+      hardware to customers across Egypt and beyond. From processors to
+      graphic cards and everything in between, we strive to offer the
+      latest and best in the tech world. Our dedication to quality and
+      customer satisfaction has made us a trusted name in the industry.
+    </p>
+  </motion.div>
+
+  <motion.div
+    className="about-image"
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.8, delay: 0.4 }}
+  >
+    <img
+      src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      alt="Tech hardware"
+      className="about-us-image"
+    />
+  </motion.div>
+</div>
+
+<motion.div
+  className="about-info"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.8, delay: 0.6 }}
+>
+  <div className="info-card">
+    <h3>Our Experience</h3>
+    <p>
+      With over 20 years in the business, we have seen the tech industry
+      evolve. Our team has the knowledge and expertise to help you find
+      the perfect tech solutions.
+    </p>
+  </div>
+  <div className="info-card">
+    <h3>Our Mission</h3>
+    <p>
+      Our mission is to provide reliable, high-quality tech hardware that
+      meets the needs of all users, from hobbyists to professionals.
+    </p>
+  </div>
+  <div className="info-card">
+    <h3>Our Location</h3>
+    <p>
+      We are proudly based in Egypt, serving clients locally and
+      internationally with the same passion and attention to detail.
+    </p>
+  </div>
+</motion.div>
+
+</div>
+<Footer />
+</>
   );
 }
 

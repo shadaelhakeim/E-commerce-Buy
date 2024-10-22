@@ -3,6 +3,7 @@ import { FaHeart, FaTag, FaShoppingCart } from "react-icons/fa";
 import "./style.css";
 import { DataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
+
 export default function ProductCard({ product }) {
   const { addToCart, addToWishlist } = useContext(DataContext);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -12,6 +13,7 @@ export default function ProductCard({ product }) {
   };
    const handleAddToCart = () => {
     addToCart(product); 
+   
   };
 
     // Check if product is defined before trying to use its properties

@@ -1,7 +1,6 @@
 /* Custom styling for product page */
 :root{
   --info-color: #eaf1fb;
-  --main-color:#F55266;
 }
 a{
   color: black;
@@ -98,6 +97,13 @@ border: none;
   animation: Fav 1s !important;
   transition: transform .5s;
   fill: #F55266 !important;
+}
+
+.loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes Fav {
